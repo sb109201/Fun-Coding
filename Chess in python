@@ -1,0 +1,48 @@
+class Chess:
+    def __init__(self):
+        self.board = [
+            ["R", "N", "B", "Q", "K", "B", "N", "R"],
+            ["P", "P", "P", "P", "P", "P", "P", "P"],
+            [" ", " ", " ", " ", " ", " ", " ", " "],
+            [" ", " ", " ", " ", " ", " ", " ", " "],
+            [" ", " ", " ", " ", " ", " ", " ", " "],
+            [" ", " ", " ", " ", " ", " ", " ", " "],
+            ["p", "p", "p", "p", "p", "p", "p", "p"],
+            ["r", "n", "b", "q", "k", "b", "n", "r"]
+        ]
+        self.current_player = "white"
+        self.is_checkmate = False
+
+    def print_board(self):
+        for row in self.board:
+            print(" ".join(row))
+
+    def is_valid_move(self, start_row, start_col, end_row, end_col):
+        # Add move validation logic here
+        return True
+
+    def move_piece(self, start_row, start_col, end_row, end_col):
+        if self.is_valid_move(start_row, start_col, end_row, end_col):
+            self.board[end_row][end_col] = self.board[start_row][start_col]
+            self.board[start_row][start_col] = " "
+            self.current_player = "white" if self.current_player == "black" else "black"
+        else:
+            print("Invalid move. Try again.")
+
+    def play(self):
+        while not self.is_checkmate:
+            self.print_board()
+            print(f"Current player: {self.current_player}")
+            try:
+                start_row, start_col = map(int, input("Enter starting row and column (e.g., 0 1): ").split())
+                end_row, end_col = map(int, input("Enter ending row and column (e.g., 2 2): ").split())
+                self.move_piece(start_row, start_col, end_row, end_col)
+            except ValueError:
+                print("Invalid input. Try again.")
+            except IndexError:
+                print("Invalid row/column. Try again.")
+
+
+if __name__ == "__main__":
+    chess_game = Chess()
+    chess_game.play()
